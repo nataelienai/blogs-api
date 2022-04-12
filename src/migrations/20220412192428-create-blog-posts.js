@@ -24,6 +24,7 @@ module.exports = {
           model: 'Users',
           key: 'id',
         },
+        field: 'user_id',
       },
       published: {
         type: Sequelize.DATE,
