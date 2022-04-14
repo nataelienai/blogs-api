@@ -20,4 +20,11 @@ module.exports = {
     const users = await User.findAll({ attributes: { exclude: ['password'] } });
     res.status(200).json(users);
   },
+
+  async findById(req, res) {
+    const user = await User.findByPk(req.params.id);
+
+    if (!user) return res.status(404).json({ message: 'User does not exist' });
+    res.status(200).json(user);
+  },
 };
