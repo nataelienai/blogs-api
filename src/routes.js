@@ -5,6 +5,7 @@ const validateCredentials = require('./middlewares/validateCredentials');
 const validateCategory = require('./middlewares/validateCategory');
 const validatePost = require('./middlewares/validatePost');
 const validatePostUpdate = require('./middlewares/validatePostUpdate');
+const authorizePostAccess = require('./middlewares/authorizePostAccess');
 const authenticate = require('./middlewares/authenticate');
 const UserController = require('./controllers/UserController');
 const LoginController = require('./controllers/LoginController');
@@ -22,6 +23,7 @@ router.get('/categories', authenticate, CategoryController.findAll);
 router.post('/post', authenticate, validatePost, PostController.create);
 router.get('/post', authenticate, PostController.findAll);
 router.get('/post/:id', authenticate, PostController.findById);
-router.put('/post/:id', authenticate, validatePostUpdate, PostController.update);
+router.put('/post/:id', authenticate, authorizePostAccess, validatePostUpdate,
+  PostController.update);
 
 module.exports = router;
