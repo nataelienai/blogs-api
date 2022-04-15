@@ -10,10 +10,11 @@ const CategoryController = require('./controllers/CategoryController');
 
 const router = express.Router();
 
-router.post('/user', validateUser, UserController.create);
 router.post('/login', validateCredentials, LoginController.login);
+router.post('/user', validateUser, UserController.create);
 router.get('/user', authenticate, UserController.findAll);
 router.get('/user/:id', authenticate, UserController.findById);
 router.post('/categories', authenticate, validateCategory, CategoryController.create);
+router.get('/categories', authenticate, CategoryController.findAll);
 
 module.exports = router;
