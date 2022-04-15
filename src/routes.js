@@ -23,9 +23,9 @@ router.post('/categories', authenticate, validateCategory, CategoryController.cr
 router.get('/categories', authenticate, CategoryController.findAll);
 router.post('/post', authenticate, validatePost, PostController.create);
 router.get('/post', authenticate, PostController.findAll);
-router.get('/post/:id', authenticate, PostController.findById);
-router.put('/post/:id', authenticate, authorizePostAccess, validatePostUpdate,
-  PostController.update);
+router.get('/post/:id', authenticate, validatePostExistence, PostController.findById);
+router.put('/post/:id', authenticate, validatePostExistence, authorizePostAccess,
+  validatePostUpdate, PostController.update);
 router.delete('/post/:id', authenticate, validatePostExistence, authorizePostAccess,
   PostController.delete);
 
