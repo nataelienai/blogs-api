@@ -4,6 +4,7 @@ const validateUser = require('./middlewares/validateUser');
 const validateCredentials = require('./middlewares/validateCredentials');
 const validateCategory = require('./middlewares/validateCategory');
 const validatePost = require('./middlewares/validatePost');
+const validatePostExistence = require('./middlewares/validatePostExistence');
 const validatePostUpdate = require('./middlewares/validatePostUpdate');
 const authorizePostAccess = require('./middlewares/authorizePostAccess');
 const authenticate = require('./middlewares/authenticate');
@@ -25,5 +26,7 @@ router.get('/post', authenticate, PostController.findAll);
 router.get('/post/:id', authenticate, PostController.findById);
 router.put('/post/:id', authenticate, authorizePostAccess, validatePostUpdate,
   PostController.update);
+router.delete('/post/:id', authenticate, validatePostExistence, authorizePostAccess,
+  PostController.delete);
 
 module.exports = router;

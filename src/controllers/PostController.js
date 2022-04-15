@@ -52,4 +52,9 @@ module.exports = {
 
     res.status(200).json(updatedPost);
   },
+
+  async delete(req, res) {
+    await BlogPost.destroy({ where: { id: req.params.id } });
+    res.status(204).end();
+  },
 };
