@@ -11,7 +11,7 @@ module.exports = async (req, res, next) => {
 
   try {
     const { email } = jwt.verify(token, JWT_SECRET);
-    const user = User.findOne({ where: { email } });
+    const { dataValues: user } = await User.findOne({ where: { email } });
     req.user = user;
 
     next();
