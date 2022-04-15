@@ -19,5 +19,6 @@ router.get('/user/:id', authenticate, UserController.findById);
 router.post('/categories', authenticate, validateCategory, CategoryController.create);
 router.get('/categories', authenticate, CategoryController.findAll);
 router.post('/post', authenticate, validatePost, PostController.create);
+router.get('/post', authenticate, PostController.findAll);
 
 module.exports = router;
