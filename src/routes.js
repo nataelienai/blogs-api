@@ -16,11 +16,15 @@ const PostController = require('./controllers/PostController');
 const router = express.Router();
 
 router.post('/login', validateCredentials, LoginController.login);
+
 router.post('/user', validateUser, UserController.create);
 router.get('/user', authenticate, UserController.findAll);
 router.get('/user/:id', authenticate, UserController.findById);
+router.delete('/user/me', authenticate, UserController.delete);
+
 router.post('/categories', authenticate, validateCategory, CategoryController.create);
 router.get('/categories', authenticate, CategoryController.findAll);
+
 router.post('/post', authenticate, validatePost, PostController.create);
 router.get('/post', authenticate, PostController.findAll);
 router.get('/post/:id', authenticate, validatePostExistence, PostController.findById);
