@@ -36,4 +36,20 @@ module.exports = {
     if (!post) return res.status(404).json({ message: 'Post does not exist' });
     res.status(200).json(post);
   },
+
+  async update(req, res) {
+    const { title, content } = req.body;
+    const { id } = req.params;
+
+    await BlogPost.update({ title, content }, { where: { id } });
+
+    const updatedPost = await BlogPost.findByPk(id, {
+      attributes: ['title', 'content', 'userId'],
+      include: [
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+
+    res.status(200).json(updatedPost);
+  },
 };
