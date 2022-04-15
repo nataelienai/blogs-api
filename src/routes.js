@@ -27,6 +27,7 @@ router.get('/categories', authenticate, CategoryController.findAll);
 
 router.post('/post', authenticate, validatePost, PostController.create);
 router.get('/post', authenticate, PostController.findAll);
+router.get('/post/search', authenticate, PostController.search);
 router.get('/post/:id', authenticate, validatePostExistence, PostController.findById);
 router.put('/post/:id', authenticate, validatePostExistence, authorizePostAccess,
   validatePostUpdate, PostController.update);
