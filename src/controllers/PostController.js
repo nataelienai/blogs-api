@@ -24,4 +24,16 @@ module.exports = {
 
     res.status(200).json(posts);
   },
+
+  async findById(req, res) {
+    const post = await BlogPost.findByPk(req.params.id, {
+      include: [
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    });
+
+    if (!post) return res.status(404).json({ message: 'Post does not exist' });
+    res.status(200).json(post);
+  },
 };
