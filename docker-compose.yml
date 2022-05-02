@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  database:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+  app:
+    depends_on:
+      - database
+    build:
+      context: .
+      args:
+        - NODE_ENV=development
+    # command: npm run debug
+    command: ["./wait-for-it.sh", "-s", "-t", "0", "database:3306", "--", "npm", "run", "debug"]
+    restart: on-failure
+    volumes:
+      - .:/opt/node_app/app
+      - ./package.json:/opt/node_app/package.json
+      - ./package-lock.json:/opt/node_app/package-lock.json
+      - not_used:/opt/node_app/app/node_modules
+    ports:
+      - 3000:3000
+      - 9229:9229
+      - 9230:9230
+    environment:
+      - NODE_ENV=development
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_HOST=database
+      - JWT_SECRET=${JWT_SECRET}
+volumes:
+  db_data: {}
+  not_used: {}
