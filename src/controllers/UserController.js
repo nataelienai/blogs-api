@@ -21,7 +21,7 @@ module.exports = {
   },
 
   async findById(req, res) {
-    const user = await User.findByPk(req.params.id);
+    const user = await User.findByPk(req.params.id, { attributes: { exclude: ['password'] } });
 
     if (!user) return res.status(404).json({ message: 'User does not exist' });
     res.status(200).json(user);
