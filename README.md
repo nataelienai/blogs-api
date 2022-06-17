@@ -15,7 +15,7 @@ Após clonar o repositório, abra o terminal e siga os seguintes passos:
 1. Entre na pasta do repositório:
 
 ```sh
-cd project-blogs-api
+cd blogs-api
 ```
 
 2. Copie `.env.example` para `.env`:
